@@ -10,11 +10,13 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "nuxt": "^3.10.3",
+    "nuxt-socket-io": "^3.0.13",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0"
   },
   "devDependencies": {
-    "@nuxtjs/tailwindcss": "^6.11.4"
+    "@formkit/auto-animate": "^0.8.1",
+    "@nuxtjs/tailwindcss": "^6.11.4",
+    "nuxt": "^3.10.3"
   }
 }
