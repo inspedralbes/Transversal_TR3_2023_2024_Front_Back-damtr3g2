@@ -7,9 +7,20 @@ const io = socketIo(server);
 io.on('connection', (socket) => {
     console.log('A user connected');
 
+    socket.on('createRoom', (roomName) => {
+        socket.join(roomName);
+        console.log(`Room created: ${roomName}`);
+        socket.emit('roomCreated', roomName); // Notify the client that the room has been created
+    });
+
+    socket.on('joinRoom', (roomName) => {
+        socket.join(roomName);
+        console.log(`User joined room: ${roomName}`);
+    });
+
     socket.on('message', (data) => {
         console.log('Message from client:', data);
-        io.emit('message', 'Message received: ' + data); // Broadcasting the received message to all clients
+        io.to(data.room).emit('message', 'Message received: ' + data.text); // Broadcasting the received message to all clients in the room
     });
 
     socket.on('disconnect', () => {
