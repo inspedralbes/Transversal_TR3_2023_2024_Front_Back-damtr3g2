@@ -1,19 +1,23 @@
-const express = require("express");
-const { createServer } = require("node:http");
-const { Server } = require("socket.io");
-const app = express();
-const server = createServer(app);
-const io = new Server(server);
-const PORT = 3001;
+const http = require('http');
+const socketIo = require('socket.io');
 
-server.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+const server = http.createServer();
+const io = socketIo(server);
+
+io.on('connection', (socket) => {
+    console.log('A user connected');
+
+    socket.on('message', (data) => {
+        console.log('Message from client:', data);
+        io.emit('message', 'Message received: ' + data); // Broadcasting the received message to all clients
+    });
+
+    socket.on('disconnect', () => {
+        console.log('User disconnected');
+    });
 });
 
-io.on("connection",function (socket) {
-  console.log("a user connected");
-  socket.on("disconnect", function() {
-    console.log("user disconnected");
-  });
-  
+const PORT = 3001;
+server.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
 });
