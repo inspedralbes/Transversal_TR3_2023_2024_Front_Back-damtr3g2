@@ -3,7 +3,6 @@
 export default ({
   devtools: {
     enabled: true,
-
     timeline: {
       enabled: true
     }
@@ -18,7 +17,8 @@ export default ({
   io: {
     sockets: [{
       name: 'main',
-      url: 'http://localhost:3001'
+      url: 'http://localhost:3001',
+      default: true
     }]  
-}
+  } 
 });
