@@ -16,10 +16,17 @@ const PORT = 3001;
 io.on("connection", (socket) => {
   console.log("a user connected");
 
+  socket.on("message", (data) => {
+    console.log("Message from client:", data);
+    io.emit("message", "Message received: " + data); // Broadcasting the received message to all clients
+  });
+
   socket.on("disconnect", () => {
-    console.log("user disconnected");
+    console.log("User disconnected");
   });
 });
+
+const PORT = 3001;
 server.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
