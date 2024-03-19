@@ -9,6 +9,7 @@ export default ({
   },
 
   modules: [
+    '@nuxt/ui',
     'nuxt-socket-io',
     '@nuxtjs/tailwindcss',
     '@formkit/auto-animate'
