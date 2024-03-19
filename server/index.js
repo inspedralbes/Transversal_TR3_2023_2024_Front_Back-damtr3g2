@@ -11,7 +11,6 @@ const io = new Server(server, {
     methods: ["GET", "POST"],
   },
 });
-const PORT = 3001;
 
 io.on("connection", (socket) => {
   console.log("a user connected");
