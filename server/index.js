@@ -36,7 +36,7 @@ io.on('connection', (socket) => {
 
     socket.on("knightAttack",(data)=>{
         console.log("knightAttack",data);
-        io.to(data.room).emit('knightAttacking', data);
+        io.to(data).emit('knightAttacking');
     })
 
     socket.on('disconnect', () => {
