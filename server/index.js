@@ -34,6 +34,11 @@ io.on('connection', (socket) => {
         io.to(data.room).emit('message', 'Message received: ' + data.text); // Transmitir el mensaje recibido a todos los clientes en la sala
     });
 
+    socket.on("knightAttack",(data)=>{
+        console.log("knightAttack",data);
+        io.to(data.room).emit('knightAttacking', data);
+    })
+
     socket.on('disconnect', () => {
         console.log('User disconnected');
         // Disminuir el contador de jugadores cuando un usuario se desconecta
