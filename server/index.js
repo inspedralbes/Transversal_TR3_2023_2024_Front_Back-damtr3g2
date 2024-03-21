@@ -49,6 +49,11 @@ io.on('connection', (socket) => {
         io.to(data).emit('knightJumping');
     })
 
+    socket.on("witchWaterBall",(data)=>{
+        console.log("witchWaterBall",data);
+        io.to(data).emit('witchWaterBalling');
+    })
+
     socket.on('disconnect', () => {
         console.log('User disconnected');
         // Disminuir el contador de jugadores cuando un usuario se desconecta
