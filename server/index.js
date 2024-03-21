@@ -15,15 +15,12 @@ const io = new Server(server, {
 io.on("connection", (socket) => {
   console.log("a user connected");
 
-  socket.on("message", (data) => {
-    console.log("Message from client:", data);
-    io.emit("message", "Message received: " + data); // Broadcasting the received message to all clients
-  });
-
   socket.on("disconnect", () => {
     console.log("User disconnected");
   });
 });
+
+app.get("/shopSkins", async (req, res) => {});
 
 const PORT = 3001;
 server.listen(PORT, () => {

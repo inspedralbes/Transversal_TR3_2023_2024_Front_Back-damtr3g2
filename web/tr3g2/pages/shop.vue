@@ -63,7 +63,7 @@ export default {
           "name": "Fire Phoenix",
           "game": "Blaze Odyssey",
           "price": 11.49,
-          "rarity": "Epic",
+          "rarity": "Legendary",
           "description": "Surca los cielos con este skin que transforma tu personaje en un majestuoso fénix de fuego.",
           "image": "https://cdn.marvel.com/content/1x/avengers_2018_39_intro_image.jpg"
         },
@@ -72,7 +72,7 @@ export default {
           "name": "Frost Guardian",
           "game": "Frozen Lands",
           "price": 9.99,
-          "rarity": "Legendary",
+          "rarity": "Common",
           "description": "Protege el reino helado con este skin que te convierte en un guardián de la escarcha.",
           "image": "https://pm1.aminoapps.com/6907/200daccb0dcd499bb9146ba478786d1e26afdbc0r1-600-600v2_00.jpg"
         },
@@ -124,11 +124,10 @@ export default {
         <URange color="purple" v-model="price" :max="30" />
         {{ price }}
       </div>
-      <!-- Shop contents -->
+      <!-- Shop -->
       <div :class="[filtersVariable ? 'w-4/5' : 'w-full'] + ' border border-1 border-black'">
         <UButton color="purple" icon="i-heroicons-adjustments-horizontal" @click="filtersVisibility"></UButton>
         <h1>Products</h1>
-        <!-- Adjust grid based on filters visibility -->
         <div :class="['grid', filtersVariable ? 'grid-cols-4' : 'grid-cols-5', 'gap-4', 'p-4']">
           <ShopItem v-for="item in filteredItems" :key="item.id" :item="item" />
         </div>
