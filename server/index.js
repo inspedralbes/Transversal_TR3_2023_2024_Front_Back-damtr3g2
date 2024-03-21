@@ -49,9 +49,10 @@ io.on('connection', (socket) => {
         io.to(data).emit('knightJumping');
     })
 
-    socket.on("witchWaterBall",(data)=>{
-        console.log("witchWaterBall",data);
-        io.to(data).emit('witchWaterBalling');
+    socket.on("witchWaterBall",(room, waterball)=>{
+        console.log(waterball)
+        console.log("witchWaterBall",room);
+        io.to(room).emit('witchWaterBalling', waterball);
     })
 
     socket.on('disconnect', () => {
