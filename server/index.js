@@ -12,22 +12,27 @@ io.on('connection', (socket) => {
 
     socket.on('createRoom', (roomName) => {
         socket.join(roomName);
-        roomPlayers[roomName] = 1; // Se crea la sala con un jugador
+        roomPlayers[roomName] = {
+            knight: socket.id, // El creador de la sala es el knight
+            witch: null // El rol de witch está vacío por ahora
+        };
         console.log(`Room created: ${roomName}`);
         socket.emit('roomCreated', roomName); // Notificar al cliente que la sala ha sido creada
     });
-
+    
     socket.on('joinRoom', (roomName) => {
         socket.join(roomName);
-        roomPlayers[roomName] = (roomPlayers[roomName] || 0) + 1; // Incrementar el contador de jugadores en la sala
+        roomPlayers[roomName].witch = socket.id; // El jugador que se une recibe el rol de witch
         console.log(`User joined room: ${roomName}`);
-
+    
         // Verificar si hay dos jugadores en la sala
-        if (roomPlayers[roomName] === 2) {
-            // Emitir el evento de comenzar partida a todos los jugadores en la sala
-            io.to(roomName).emit('startGame');
+        if (roomPlayers[roomName].knight && roomPlayers[roomName].witch) {
+            // Emitir el evento de comenzar partida a todos los jugadores en la sala,
+            // junto con los roles asignados
+            io.to(roomName).emit('startGame', roomPlayers[roomName]);
         }
     });
+    
 
     socket.on('message', (data) => {
         console.log('Message from client:', data);
