@@ -48,6 +48,16 @@ app.get("/shopSkins", async (req, res) => {
   }
 });
 
+app.post("/createUser", async (req, res) => {
+  try {
+    const user = req.body;
+    await mongodb.createUser(user);
+    res.send("User created");
+  } catch (error) {
+    console.error("Error creating user: ", error);
+  }
+});
+
 // const PORT = 3001;
 // server.listen(PORT, () => {
 //   console.log(`Server running on port ${PORT}`);

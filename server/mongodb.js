@@ -56,7 +56,7 @@ function getSkins() {
           .find()
           .toArray()
           .then((result) => {
-            console.log(result);
+            // console.log(result);
             resolve(result);
           })
           .catch((error) => {
@@ -70,5 +70,29 @@ function getSkins() {
       });
   });
 }
+
+function createUser(user) {
+  return new Promise((resolve, reject) => {
+    client
+      .connect()
+      .then(() => {
+        users
+          .insertOne(user)
+          .then((result) => {
+            resolve(result);
+          })
+          .catch((error) => {
+            console.error("Error creating user: ", error);
+            reject(error);
+          });
+      })
+      .catch((error) => {
+        console.error("Error connecting to database: ", error);
+        reject(error);
+      });
+  });
+}
+
+module.exports = { connectToSkins, connectToUsers, getSkins, createUser };
 
 module.exports = { connectToSkins, connectToUsers, getSkins };

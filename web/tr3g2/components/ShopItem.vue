@@ -1,5 +1,9 @@
 <script lang="ts">
 import { ref } from 'vue';
+import CommonSkin from '../assets/Epic_Skin.png'; // Import the image
+import RareSkin from '../assets/Legendary_Skin.png'; // Import the image
+import EpicSkin from '../assets/Hextech_Skin.png'; // Import the image
+import LegendarySkin from '../assets/Ultimate_Skin.png'; // Import the image
 
 export default {
   props: {
@@ -12,10 +16,20 @@ export default {
     return {
     }
   },
-  setup() {
+  setup(props) {
+    const skinImages = {
+      Common: CommonSkin,
+      Rare: RareSkin,
+      Epic: EpicSkin,
+      Legendary: LegendarySkin
+    };
+
+    const rarityImage = computed(() => {
+      return skinImages[props.item.rarity]; // Retrieve the appropriate image based on item rarity
+    });
 
     return {
-
+      rarityImage
     }
   },
   mounted() {
@@ -25,21 +39,18 @@ export default {
 </script>
 
 <template>
-  <div :class="['rounded-lg', 'border', 'border-1', 'border-black', {
-    'bg-yellow-200': item.rarity === 'Legendary',
-    'bg-blue-200': item.rarity === 'Rare',
-    'bg-purple-200': item.rarity === 'Epic',
-    'bg-green-200': item.rarity === 'Common'
+  <div :style="{ backgroundImage: `url(${item.image})` }" :class="['rounded-lg', 'bg-cover', 'border', 'border-2', 'h-[35rem]', 'hover:scale-125 transition-all', {
+    'border-yellow-500': item.rarity === 'Legendary',
+    'border-blue-500': item.rarity === 'Rare',
+    'border-purple-500': item.rarity === 'Epic',
+    'border-green-500': item.rarity === 'Common'
   }]">
-    <img :src="item.image" alt="Product image" class="w-96 h-96 rounded-lg drop-shadow-xl mb-2">
-    <UDivider :label="item.rarity" />
-    <div class="card-body mt-6">
-      <h5 class="card-title">{{ item.name }}</h5>
-      <p class="card-text">{{ item.description }}</p>
-      <div class="flex border border-1 border-black items-center">
-        <p class="text-lg font-bold mr-4">{{ item.price }}$</p>
-        <UButton color="purple" variant="solid" class="mt-2">Comprar</UButton>
-      </div>
+    <!-- <img :src="item.image" alt="Product image" class="w-96 h-96 rounded-t-lg drop-shadow-xl mb-2"> -->
+    <UDivider :label="item.rarity" class="mt-[29rem]">
+      <img :src="rarityImage" class="w-12" />
+    </UDivider>
+    <div class="mt-3">
+      <h1 class="text-center text-2xl mb-2 ">{{ item.name }}</h1>
     </div>
   </div>
 </template>
